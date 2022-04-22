@@ -16,7 +16,7 @@ colnames(tiblEmv) <- colNames
 
 
 tiblEmv %>%
-  pivot_longer(slice(tablEmv,n=3), names_to = "Grupo", values_to = "EMV")
+  pivot_longer(slice(tiblEmv,n=3), names_to = "Grupo", values_to = "EMV")
 
 #dfEMV <- data.frame(Grupo = rep(0,length.out = 2*nrow(residuos)),
 #                    Ano = rep(c('2004','2018'),length.out = 2*nrow(residuos)),
