@@ -4,7 +4,7 @@ library(readxl)
 residuos <- read_excel('ResiduosPerCapita.xlsx',
                        range = 'A14:C43',
                        col_types = c('text','numeric','numeric'),
-                       col_names = FALSE)
+                       col_names = c('Grupo','2004','2018'))
 # Organizar os dados
 for (i in 1:nrow(residuos)) {
   residuos[i,1] <- substr(residuos[i, 1], start = 1 , stop = 2)
