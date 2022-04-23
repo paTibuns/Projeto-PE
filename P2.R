@@ -1,10 +1,8 @@
 library(tidyverse)
 library(readxl)
+library(ggrepel)
 
-emv <- read_excel('EsperancaVida.xlsx',
-                  range = 'A9:CY70',
-                  col_names = FALSE)
-
+emv <- read_excel('EsperancaVida.xlsx', range = 'A9:CY70', col_names = FALSE)
 tibblEmv <- as_tibble(emv)
 
 #TODO SUBSTITUIR O LOOP POR UMA FORMA MAIS COMPACTA
@@ -25,14 +23,6 @@ for (i in 2:ncol(tibblEmv)) {
   }
 }
 
-#colNames <- tibblEmv[1,]
-#tibblEmv <- slice(tiblEmv,-1)
-#colnames(tibblEmv) <- colNames
-
-#tibblEmv <- tibblEmv %>% replace_na(list('Ano')) %>%
-#  print(tibblEmv)
-#replace_na(tibblEmv[1,],list('Ano'))
-#replace(tibblEmv[1,],1,'Ano')
 colnames(tibblEmv) <- tibblEmv[1,]
 colnames(tibblEmv)[1] <- 'Ano'
 tibblEmv <- slice(tibblEmv,-1)
@@ -42,58 +32,15 @@ tibblEmv %>%
     separate(GS,c('Grupo','Sexo'),sep = '_') %>%
   filter((Grupo == 'ES'| Grupo == 'GR'|Grupo == 'HU') &
            (between(Ano,2002,2019)) &
-           #(Sexo == 'Total')) %>%
            (Sexo == 'Homens'|Sexo == 'Mulheres')) %>%
   ggplot(aes(x = Ano, y = EMV,Group = Grupo,colour = Grupo,shape = Sexo))+
-  geom_line(aes(linetype = Grupo),size = 1)+
-  geom_point( size = 5, alpha = 0.7)+
+  #ggrepel::geom_label_repel(aes(label =  max(tibblEmv$EMV)),  ---> tentativa de criar labels com os
+  #                          size = 6,                              valores dos pontos
+  #                          label.size = 0,
+  #                          segment.color = NA)
+  geom_point(size = 5, alpha = 0.7)+
+  geom_smooth(se = F)+
   theme_minimal()+
-  labs(title = 'Esperanca Media de Vida por grupo e sexo')
-
-
-#TEST - 3 Variaveis
-#tibblEmv %>%
-#  pivot_longer(UE27_Total:CH_Mulheres,names_to = 'GS',values_to = 'EMV') %>%
-#  separate(GS,c('Grupo','Sexo'),sep = '_') %>%
-#  filter((Grupo == 'GR') & #| Grupo == 'GR'|Grupo == 'HU') &
-#           (between(Ano,2002,2010)) &
-#           (Sexo == 'Total')) %>%
-#           #(Sexo == 'Homens'|Sexo == 'Mulheres')) %>%
-#  ggplot(aes(x = Ano, y = EMV,group =))+
-#  geom_line(size = 1)+
-#  geom_point(size = 5, alpha = 0.7)+
-#  theme_minimal()+
-#  labs(title = 'Esperanca Media de Vida por grupo e sexo')
-
-
-
-#tiblEmv <- tibble(Grupo = rep('l',length.out = 3*nrow(emv)),
-#                  Ano = rep(0,length.out = 3*nrow(emv)),
-#                  Sexo =  rep(c('Total','Homens','Mulheres'),length.out = 3*nrow(emv)),
-#                  EMV = rep(0,length.out = 3*nrow(emv)))
-
-#for (i in 2:nrow(tiblEmv)) {
-#  if(i==36) {
-#    break
-#  }
-#  tiblEmv[3*(i-1)-2,1] <- emv[1,1+i]
-#  tiblEmv[3*(i-1)-1,1] <- emv[1,1+i]
-#  tiblEmv[3*(i-1),1] <- emv[1,1+i]
-#}
-
-#tiblEmv <- as_tibble(emv)
-#colNames <- tiblEmv[1,]
-#tiblEmv <- slice(tiblEmv,-1)
-#colnames(tiblEmv) <- colNames
-
-#tiblEmv %>%
-#  pivot_longer(c(Homens,Mulheres),names_to = 'Sexo')
-  #pivot_longer(select(tiblEmv,UE27:CH), names_to = "Grupo", values_to = "EMV")
-  #pivot_longer(x, cols = c(lipids, density), names_to = c('.value', 'trait'),
-         #names_sep = '[.]', values_drop_na = TRUE)
-
-
-#dfEMV <- data.frame(Grupo = rep(0,length.out = 2*nrow(residuos)),
-#                    Ano = rep(c('2004','2018'),length.out = 2*nrow(residuos)),
-#                    Sexo = rep(0,length.out = 2*nrow(residuos)),
-#                    EMV = rep(0,))
+  labs(title = 'Esperanca media de vida por grupo e sexo aumentou ao longo dos anos',
+       caption = 'Dados obtidos de pordata.pt',
+       y = 'Esperanca Media de Vida')
