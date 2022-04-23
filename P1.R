@@ -19,4 +19,7 @@ tibleResiduos %>%
   geom_text(aes(label=Residuos), vjust=1.6, color="white",
             position = position_dodge(0.9), size=5)+
   scale_fill_manual(values=c('#abd4a3',"#78d466"))+
-  theme_minimal()
+  theme_minimal()+
+  labs(title = 'Residuos produzidos per capita em cada grupo nos anos 2004 e 2018',
+       caption = 'Dados obtidos de pordata.pt',
+       y = 'Producao de residuos per capita [toneladas]')
