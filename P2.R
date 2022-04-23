@@ -38,18 +38,32 @@ colnames(tibblEmv)[1] <- 'Ano'
 tibblEmv <- slice(tibblEmv,-1)
 
 tibblEmv %>%
-  pivot_longer(UE27_Total:CH_Mulheres,names_to = 'GS',values_to = 'EMV') %>%
-  separate(GS,c('Grupo','Sexo'),sep = '_') %>%
+  pivot_longer(UE27_Total:CH_Mulheres,names_to = 'GS',values_to = 'EMV',values_transform = list(EMV = as.numeric)) %>%
+    separate(GS,c('Grupo','Sexo'),sep = '_') %>%
   filter((Grupo == 'ES'| Grupo == 'GR'|Grupo == 'HU') &
            (between(Ano,2002,2019)) &
+           #(Sexo == 'Total')) %>%
            (Sexo == 'Homens'|Sexo == 'Mulheres')) %>%
-  ggplot()
+  ggplot(aes(x = Ano, y = EMV,Group = Grupo,colour = Grupo,shape = Sexo))+
+  geom_line(aes(linetype = Grupo),size = 1)+
+  geom_point( size = 5, alpha = 0.7)+
+  theme_minimal()+
+  labs(title = 'Esperanca Media de Vida por grupo e sexo')
 
 
-
-
-
-
+#TEST - 3 Variaveis
+#tibblEmv %>%
+#  pivot_longer(UE27_Total:CH_Mulheres,names_to = 'GS',values_to = 'EMV') %>%
+#  separate(GS,c('Grupo','Sexo'),sep = '_') %>%
+#  filter((Grupo == 'GR') & #| Grupo == 'GR'|Grupo == 'HU') &
+#           (between(Ano,2002,2010)) &
+#           (Sexo == 'Total')) %>%
+#           #(Sexo == 'Homens'|Sexo == 'Mulheres')) %>%
+#  ggplot(aes(x = Ano, y = EMV,group =))+
+#  geom_line(size = 1)+
+#  geom_point(size = 5, alpha = 0.7)+
+#  theme_minimal()+
+#  labs(title = 'Esperanca Media de Vida por grupo e sexo')
 
 
 
