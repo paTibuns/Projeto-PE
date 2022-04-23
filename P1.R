@@ -7,7 +7,7 @@ residuos <- read_excel('ResiduosPerCapita.xlsx',
                        col_names = c('Grupo','2004','2018'))
 # Reduzir os nomes dos Grupos às suas iniciais
 for (i in 1:nrow(residuos)) {
-  residuos[i,1] <- substr(residuos[i, 1], start = 1 , stop = 2)
+  residuos[i,1] <- sapply(strsplit(as.character(residuos[i,1]),split = " "), `[`, 1)
 }
 
 tibleResiduos <- as_tibble(residuos)
