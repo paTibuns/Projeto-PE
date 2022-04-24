@@ -44,4 +44,5 @@ tibblEmv %>%
   scale_color_manual(values=c("#ad1519", "#001489",'#008724'))+
   labs(title = 'Esperanca media de vida por grupo e sexo aumentou ao longo dos anos',
        caption = 'Dados obtidos de pordata.pt',
+       x = 'Ano da estimativa', #Ou 'Momento de referencia'?
        y = 'Esperanca Media de Vida [Anos]')
