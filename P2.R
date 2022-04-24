@@ -41,6 +41,7 @@ tibblEmv %>%
   geom_point(size = 5, alpha = 0.7)+
   geom_smooth(se = F)+
   theme_minimal()+
+  scale_color_manual(values=c("#ad1519", "#001489",'#008724'))+
   labs(title = 'Esperanca media de vida por grupo e sexo aumentou ao longo dos anos',
        caption = 'Dados obtidos de pordata.pt',
-       y = 'Esperanca Media de Vida')
+       y = 'Esperanca Media de Vida [Anos]')
