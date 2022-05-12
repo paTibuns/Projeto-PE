@@ -11,10 +11,10 @@ amostra <- rexp(n = dim, rate = lamb)
 
 #Probabilidade empirica
 eDist <- ecdf(amostra)
-eProb <- 1 - eDist(tempEsp)
+eProb <- 1 - eDist(tempEsp)   #P(X>4) = 1 - P(X<=4)
 
 #Probabilidade teorica
-tProb <- exp(-(lamb*tempEsp))  #--> Cosiderado que P(X>=x)=P(X>x) porque distribuicao é continua
+tProb <- exp(-(lamb*tempEsp))  #Considerado que P(X>=x) = P(X>x) porque distribuicao é continua
 
 #Diferença entre probabilidades
 res <- abs(tProb-eProb)
