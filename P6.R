@@ -14,6 +14,6 @@ for (dim in dimVector) {
   assign(toDisc, amostra)
   #Média
   media <- apply(amostra,2,median)
-  toDisc <- paste("media_n",dim)
+  toDisc <- paste0("media_n", dim)
   assign(toDisc,media)
 }
