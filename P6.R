@@ -23,7 +23,7 @@ for (dim in dimVector) {
   #Gerar Amostra
   set.seed(seed = expSeed)
   amostra <- replicate(nAmostras, runif(n = dim, min = limMin, max = limMax))
-  mMedia[,i] <- apply(amostra,2,median)
+  mMedia[,i] <- apply(amostra,2,mean)
   mValVar[i] <- (valVar/dim)
 }
 
