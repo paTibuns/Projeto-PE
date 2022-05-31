@@ -1,4 +1,5 @@
 library(tidyverse)
+library(ggpubr)
 
 #Dados iniciais
 nAmostras <- 1400
@@ -6,11 +7,15 @@ expSeed <- 1788
 dimVector <- c(2,30,73)
 limMin <- 11
 limMax <- 15
-valEsp <- ((limMax+limMin)/2)
 
 #Alocação
-mMedia <- matrix(0,nAmostras,length(dimVector))
+mMedia <- data.frame(matrix(0,nAmostras,length(dimVector)))
 mValVar <- matrix(0,1,length(dimVector))
+x <- seq(from = limMin,to = limMax,len = nAmostras/2)
+
+#Cálculos intemédios
+valEsp <- ((limMax+limMin)/2) #Valor esperado
+valVar <- (((limMax-limMin)^2)/12)
 
 i <- 0
 for (dim in dimVector) {
@@ -18,22 +23,30 @@ for (dim in dimVector) {
   #Gerar Amostra
   set.seed(seed = expSeed)
   amostra <- replicate(nAmostras, runif(n = dim, min = limMin, max = limMax))
-
   mMedia[,i] <- apply(amostra,2,median)
-  mValVar[i] <- (((limMax-limMin)^2/12)/dim)
+  mValVar[i] <- (valVar/dim)
 }
 
-#Construir Gráfico
-#  ggplot() +
-#    aes(mMedia$)+
-#    geom_histogram(alpha = 0.5, position = "identity",binwidth = 5)+
-#  #TODO Mexer no binwidth para aumentar ou diminuir o intervalo dos valores representados
-#    theme(legend.position = "top")+
-#    scale_fill_brewer(palette = "Dark2")+
-#    scale_color_brewer(palette = "Dark2")+
-#    labs(title = 'Niveis de ozono registados nas estacoes de Mem-Martins e Antas-Espinho em 2020',
-#       caption = 'Dados obtidos de qualar.apambiente.pt',
-#       x = 'Valores dos niveis de ozono registados [microgramas por metro cubico]',
-#       y = 'Numero de observacoes registadas')
-  #geom_freqpoly(binwidth = 10)
-  #theme_minimal()
+par(mfrow=c(1,length(dimVector)))
+for (i in 1:length(dimVector)){
+  graf <- ggplot(mMedia, aes(x = mMedia[,i])) +
+  geom_histogram(aes(y = after_stat(count / sum(count))), bins = 20) +
+  scale_y_continuous(labels = scales::percent)+
+  stat_function(fun = dnorm, args = list(mean = valEsp,sd = mValVar[i]))
+  #geom_line(data = data.frame(dnorm(x,mean=valEsp, sd=mValVar[i])))#, aes(group = 1), size = 1.25, color = "black")
+  if (i==1){
+    grafArray <- ggarrange(graf)
+  } else {
+    grafArray <- ggarrange(graf,grafArray)
+  }
+}
+
+grafArray
+
+ggplot(mMedia,aes(mMedia[,1]))+
+geom_histogram(aes(y = ..density..),alpha = 0.5, position = "identity",binwidth = 10)+
+stat_function(fun = dnorm, args = list(mean = valEsp,sd = mValVar[1]))
+
+#ggplot(mMedia, aes(x = mMedia[,3])) +
+#  geom_histogram(aes(y = after_stat(count / sum(count))), bins = 20) +
+# scale_y_continuous(labels = scales::percent)
