@@ -27,17 +27,19 @@ for (dim in dimVector) {
   mValVar[i] <- (valVar/dim)
 }
 
-par(mfrow=c(1,length(dimVector)))
 for (i in 1:length(dimVector)){
   graf <- ggplot(mMedia, aes(x = mMedia[,i])) +
-  geom_histogram(aes(y = after_stat(count / sum(count))), bins = 10) +
-  scale_y_continuous(labels = scales::percent)+
-  stat_function(fun = dnorm, args = list(mean = valEsp,sd = mValVar[i]))+
-    labs(title = 'Amostras de uma populacao, X, com distribuicao Uniforme ',x='',y='Frequencia relativa')
-  if (i==1){
-    grafArray <- ggarrange(graf)
-  } else {
-    grafArray <- ggarrange(graf,grafArray)
-  }
+    geom_histogram(aes(y = after_stat(count / sum(count))), bins = 10, color="black", fill="darkgreen") +
+    scale_y_continuous(labels = scales::percent)+
+    stat_function(fun = dnorm, args = list(mean = valEsp,sd = mValVar[i]))+
+    labs(x = 'Intervalo de valores',y = 'Frequencia Relativa')
+
+  toDisc <- paste0("graf", i)
+  assign(toDisc,graf)
 }
-grafArray
+histGraf <- ggarrange(graf1,graf2,graf3,ncol = 3,labels = c('n = 2','n = 30','n = 73'),hjust = -0.1,
+          font.label = list(size = 14, face = "bold", color ="#00ad00"))
+histGraf
+#Para meter um titulo no graf usar:
+#annotate_figure(histGraf, top = text_grob("Histograma da frequência relativa da média de X e distribuição normal",
+                                          #color = "red", face = "bold", size = 14))
