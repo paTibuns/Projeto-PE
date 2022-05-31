@@ -30,23 +30,14 @@ for (dim in dimVector) {
 par(mfrow=c(1,length(dimVector)))
 for (i in 1:length(dimVector)){
   graf <- ggplot(mMedia, aes(x = mMedia[,i])) +
-  geom_histogram(aes(y = after_stat(count / sum(count))), bins = 20) +
+  geom_histogram(aes(y = after_stat(count / sum(count))), bins = 10) +
   scale_y_continuous(labels = scales::percent)+
-  stat_function(fun = dnorm, args = list(mean = valEsp,sd = mValVar[i]))
-  #geom_line(data = data.frame(dnorm(x,mean=valEsp, sd=mValVar[i])))#, aes(group = 1), size = 1.25, color = "black")
+  stat_function(fun = dnorm, args = list(mean = valEsp,sd = mValVar[i]))+
+    labs(title = 'Amostras de uma populacao, X, com distribuicao Uniforme ',x='',y='Frequencia relativa')
   if (i==1){
     grafArray <- ggarrange(graf)
   } else {
     grafArray <- ggarrange(graf,grafArray)
   }
 }
-
 grafArray
-
-ggplot(mMedia,aes(mMedia[,1]))+
-geom_histogram(aes(y = ..density..),alpha = 0.5, position = "identity",binwidth = 10)+
-stat_function(fun = dnorm, args = list(mean = valEsp,sd = mValVar[1]))
-
-#ggplot(mMedia, aes(x = mMedia[,3])) +
-#  geom_histogram(aes(y = after_stat(count / sum(count))), bins = 20) +
-# scale_y_continuous(labels = scales::percent)
