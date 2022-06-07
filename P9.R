@@ -31,6 +31,6 @@ ggplot(dfGraf,aes(x = dim, y = MAn))+
   geom_point(size = 5, alpha = 0.7, colour = 4)+
   theme_minimal()+
   labs(title = 'Media da amplitude do intervalo de confianca vs dimensao da amostra',
-       caption = 'Semente = 270   m = 500   lambda = 1.32   (1 - alpha = 0.97)',
+       caption = 'Semente = 270 | m = 500 | lambda = 1.32 | 1 - alfa = 0.97',
        x = 'Dimensao das m amostras',
        y = 'Media da amplitude do intervalo de confianca das m amostras')
