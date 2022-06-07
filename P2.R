@@ -39,7 +39,7 @@ tibblEmv %>%
   filter((Grupo == 'ES'| Grupo == 'GR'|Grupo == 'HU') &
            (between(Ano,2002,2019)) &
            (Sexo == 'Homens'|Sexo == 'Mulheres')) %>%
-  ggplot(aes(x = Ano, y = EMV,Group = Grupo,colour = Grupo,shape = Sexo))+
+  ggplot(aes(x = Ano, y = EMV,colour = Grupo,shape = Sexo))+
   #ggrepel::geom_label_repel(aes(label =  max(tibblEmv$EMV)),  #---> tentativa de criar labels com os
   #                          size = 6,                          #    valores dos pontos
   #                          label.size = 0,
