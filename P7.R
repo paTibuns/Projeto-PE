@@ -4,7 +4,6 @@ expSeed <- 201
 dim <- 15
 nBern <- 50
 pSuccess <- 0.46
-nDecimais <- 6
 
 #Gerar Amostra
 set.seed(seed = expSeed)
@@ -15,4 +14,4 @@ mMedia <- apply(amostra,2,mean)
 valEspMed <- mean(mMedia)
 valEspX <- nBern*pSuccess
 res <- abs(valEspMed-valEspX)
-format(round(res, nDecimais), nsmall = nDecimais)
+format(round(res, 6), nsmall = 6)
