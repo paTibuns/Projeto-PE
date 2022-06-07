@@ -3,7 +3,6 @@ expSeed <- 1040
 dim <- 476
 lamb <- 0.29
 tempEsp <- 4
-nDecimais <- 6
 
 #Gerar Amostra
 set.seed(seed = expSeed)
@@ -15,4 +14,4 @@ eProb <- 1 - eDist(tempEsp)   #P(X>4) = 1 - P(X<=4)
 tProb <- exp(-(lamb*tempEsp))  #Considerado que P(X>=x) = P(X>x) porque distribuicao é continua
 #Diferença entre probabilidades
 res <- abs(tProb-eProb)
-format(round(res, nDecimais), nsmall = nDecimais)
+format(round(res, 6), nsmall = 6)
