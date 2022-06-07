@@ -1,13 +1,14 @@
 #Dados iniciais
 expSeed <- 214
-nAmostras <- 600
-dim <- 1068
+nAmostras <- 1
+dim <- 35
 lamb <- 0.3
-lvlConf <- 0.97
+lvlConf <- 0.90
 
-set.seed(seed = expSeed)
-amostra <- replicate(nAmostras, rexp(n = dim, rate = lamb))
-media <- apply(amostra,2,mean)
+#set.seed(seed = expSeed)
+#amostra <- replicate(nAmostras, rexp(n = dim, rate = lamb))
+#media <- apply(amostra,2,mean)
+media <- 77.349/dim
 
 alpha <- 1 - lvlConf
 quantAlpha <- qnorm(1-alpha/2)
