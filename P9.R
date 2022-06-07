@@ -1,5 +1,4 @@
 library(tidyverse)
-
 #Dados iniciais
 expSeed <- 270
 nAmostras <- 500
