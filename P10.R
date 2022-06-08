@@ -49,7 +49,6 @@ for (dim in dimArray){
 }
 
 ggplot(dfGraf,aes(x = dim, y = medAmp, color = type))+
-  #geom_line()+
   geom_point(size = 5, alpha = 0.7)+
   scale_color_manual(values=c('#ad1519','#008724'))+
   theme_minimal()+
