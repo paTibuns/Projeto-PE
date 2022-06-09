@@ -12,14 +12,12 @@ limMax <- 15
 mMedia <- data.frame(matrix(0,nAmostras,length(dimVector)))
 stdDev <- matrix(0,1,length(dimVector))
 
-#Cálculos intemédios
 valEsp <- ((limMax+limMin)/2)
 valVar <- (((limMax-limMin)^2)/12)
 
 i <- 0
 for (dim in dimVector) {
   i <- i + 1
-  #Gerar Amostra
   set.seed(seed = expSeed)
   amostra <- replicate(nAmostras, runif(n = dim, min = limMin, max = limMax))
   mMedia[,i] <- apply(amostra,2,mean)
@@ -29,10 +27,11 @@ for (dim in dimVector) {
     stat_function(fun = dnorm, args = list(mean = valEsp,sd = stdDev[i]))+
     scale_y_continuous(labels = scales::percent)+
     labs(x = 'Intervalo de valores',y = 'Frequencia Relativa')
-
+  #Criar uma variável graf_i (i=1,2,3) para guardar o gráfico
   toDisc <- paste0("graf", i)
   assign(toDisc,graf)
 }
+#Juntar os 3 gráficos
 histGraf <- ggarrange(graf1,graf2,graf3,ncol = 3,labels = c('n = 2','n = 30','n = 73'),hjust = -0.1, vjust = 1.1,
           font.label = list(size = 14, face = "bold", color ="#00ad00"))
 annotate_figure(histGraf, top = text_grob("Histograma da frequencia relativa da media de X e distribuicao normal",
