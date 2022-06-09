@@ -13,7 +13,7 @@ tibblO3 %>%
   theme(legend.position = "top")+
   scale_fill_brewer(palette = "Dark2")+
   scale_color_brewer(palette = "Dark2")+
-  labs(title = 'Niveis de ozono registados nas estacoes de Mem-Martins e Antas-Espinho em 2020',
+  labs(title = 'Niveis de ozono registados em Mem-Martins e Antas-Espinho em 2020',
        caption = 'Dados obtidos de qualar.apambiente.pt',
        x = 'Valores dos niveis de ozono registados [microgramas por metro cubico]',
        y = 'Numero de observacoes registadas')
