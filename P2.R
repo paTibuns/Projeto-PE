@@ -23,15 +23,15 @@ colnames(tibblEmv) <- tibblEmv[1,]
 colnames(tibblEmv)[1] <- 'Ano'
 tibblEmv <- slice(tibblEmv,-1)
 
-tibblEmv %>%
+tibblEmv%>%
   #Separar a coluna dos sexos e paises em 2 (uma coluna para cada)
   pivot_longer(UE27_Total:CH_Mulheres,names_to = 'GS',values_to = 'EMV',
-               values_transform = list(EMV = as.numeric)) %>%
-  separate(GS,c('Grupo','Sexo'),sep = '_') %>%
-  
-  filter((Grupo == 'ES'| Grupo == 'GR'|Grupo == 'HU') &
-           (between(Ano,2002,2019)) &
-           (Sexo == 'Homens'|Sexo == 'Mulheres')) %>%
+               values_transform = list(EMV = as.numeric))%>%
+  separate(GS,c('Grupo','Sexo'),sep = '_')%>%
+
+  filter((Grupo == 'ES'|Grupo == 'GR'|Grupo == 'HU') &
+         (between(Ano,2002,2019)) &
+         (Sexo == 'Homens'|Sexo == 'Mulheres'))%>%
   ggplot(aes(x = Ano, y = EMV,colour = Grupo,shape = Sexo))+
   geom_point(size = 5, alpha = 0.7)+
   geom_smooth(se = F)+
