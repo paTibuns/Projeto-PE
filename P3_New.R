@@ -10,7 +10,6 @@ tibblO3 %>%
   filter((Local == 'Mem-Martins' | Local == 'Antas-Espinho')) %>%
   ggplot(aes(x = O3lvl, color = Local,fill = Local))+
   geom_histogram(alpha = 0.5, position = "identity",binwidth = 5)+
-  #TODO Mexer no binwidth para aumentar ou diminuir o intervalo dos valores representados
   theme(legend.position = "top")+
   scale_fill_brewer(palette = "Dark2")+
   scale_color_brewer(palette = "Dark2")+
