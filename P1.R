@@ -18,7 +18,7 @@ tibleResiduos %>%
   geom_bar(stat = "identity", position = "dodge")+
   geom_text(aes(label=Residuos), vjust=1.6, color="white",
             position = position_dodge(0.9), size=5)+
-  scale_fill_manual(values=c('#abd4a3',"#78d466"))+
+  scale_fill_manual(values=c('#abd4a3',"#0dba19"))+
   theme_minimal()+
   labs(title = 'Residuos produzidos per capita em cada grupo nos anos 2004 e 2018',
        caption = 'Dados obtidos de pordata.pt',
