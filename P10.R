@@ -20,7 +20,8 @@ for (dim in dimArray){
     limSup <- ((1+(quantAlpha/sqrt(dim)))/media[i])
     limAmp[i] <- limSup - limInf
   }
-  dfGraf[j,1] <- dim ; dfGraf[j,2] <- 'MAn' ; dfGraf[j,3] <- mean(limAmp)
+  dfGraf[j,1] <- dim ; dfGraf[j,2] <- 'MAn'
+  dfGraf[j,3] <- mean(limAmp)
 }
 
 for (dim in dimArray){
@@ -36,7 +37,8 @@ for (dim in dimArray){
     limSup <- ((1+(quantAlpha/sqrt(dim)))/media[i])
     limAmp[i] <- limSup - limInf
   }
-  dfGraf[j,1] <- dim ; dfGraf[j,2] <- 'MACn' ; dfGraf[j,3] <- mean(limAmp)
+  dfGraf[j,1] <- dim ; dfGraf[j,2] <- 'MACn'
+  dfGraf[j,3] <- mean(limAmp)
 }
 
 ggplot(dfGraf,aes(x = dim, y = medAmp, color = type))+
